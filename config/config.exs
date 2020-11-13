@@ -10,6 +10,13 @@ use Mix.Config
 config :dogfood,
   ecto_repos: [Dogfood.Repo]
 
+pg_url = System.get_env("PG_URL") || "dogfood:dogfood@127.0.0.1"
+pg_database = System.get_env("PG_DATABASE") || "dogfood_dev"
+
+config :dogfood, Dogfood.Repo,
+  database: pg_database,
+  url: "ecto://#{pg_url}/#{pg_database}"
+
 # Configures the endpoint
 config :dogfood, DogfoodWeb.Endpoint,
   url: [host: "localhost"],
